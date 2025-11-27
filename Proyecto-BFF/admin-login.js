@@ -1,0 +1,49 @@
+// admin-login.js
+const express = require("express");
+const router = express.Router();
+const bcrypt = require("bcryptjs");
+const { Pool } = require("pg");
+
+// 🔹 Conexión a PostgreSQL
+const pool = new Pool({
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
+});
+
+console.log("🛠 admin-login.js cargado correctamente");
+
+// 🟢 LOGIN ADMIN
+router.post("/admin-login", async (req, res) => {
+  const { correo, contrasena } = req.body;
+
+  try {
+    const admin = await pool.query(
+      "SELECT * FROM admin WHERE correo = $1",
+      [correo]
+    );
+
+    if (admin.rows.length === 0) {
+      return res.status(404).json({ autenticado: false, mensaje: "Administrador no encontrado" });
+    }
+
+    // 👉 Como la contraseña NO está encriptada, se compara directo
+    if (contrasena !== admin.rows[0].contrasena) {
+      return res.status(401).json({ autenticado: false, mensaje: "Contraseña incorrecta" });
+    }
+
+    res.json({
+      autenticado: true,
+      mensaje: "Administrador autenticado",
+      admin: admin.rows[0]
+    });
+
+  } catch (err) {
+    console.error("❌ Error en /admin-login:", err);
+    res.status(500).json({ autenticado: false, mensaje: "Error en el servidor" });
+  }
+});
+
+module.exports = router;
