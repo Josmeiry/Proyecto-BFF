@@ -1,6 +1,6 @@
 // Admin.js
 const { DataTypes } = require("sequelize");
-const sequelize = require("./bd");
+const sequelize = require("./src/db/bd");
 
 const Admin = sequelize.define("Admin", {
   id_admin: {

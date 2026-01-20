@@ -1,18 +1,19 @@
+
 const { DataTypes } = require('sequelize');
-const sequelize = require('./bd');
+const sequelize = require('./src/db/bd');
 
 const Usuario = sequelize.define('Usuario', {
-  id_usuario: {
+  id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   },
   nombre: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(255),
     allowNull: false,
   },
   correo: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(255),
     allowNull: false,
     unique: true,
     validate: {
@@ -20,16 +21,11 @@ const Usuario = sequelize.define('Usuario', {
     },
   },
   contrasena: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(255),
     allowNull: false,
   },
-  fecha_registro: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  },
 }, {
-  tableName: 'usuario', // coincide con la tabla real
+  tableName: 'usuarios',
   timestamps: false,
 });
-
 module.exports = Usuario;
