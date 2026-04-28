@@ -31,7 +31,12 @@ console.log("📌 Guardado en la base:", JSON.stringify(usuario.contrasena));
 
     return res.json({
       msg: "Inicio exitoso",
-      usuario
+      usuario: {
+        id: usuario.id,
+        nombre: usuario.nombre,
+        correo: usuario.correo,
+        tipo: "usuario"
+      }
     });
 
   } catch (err) {

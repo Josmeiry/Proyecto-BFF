@@ -1,8 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-
-
+const Usuario = require("./Usuario");
 const routes = require('./src/routes/correr');
 const sequelize = require('./src/db/bd');
 
@@ -33,10 +32,80 @@ app.get("/", (req, res) => {
 app.use("/", routes);
 app.use("/uploads", express.static("uploads"));
 
-const direccionRoutes = require("./src/direccion-carwash/routes/direccion.routes");
-require("./src/direccion-carwash"); // ⬅ carga relaciones
+// const authRoutes = require("./routes/auth");
+// app.use("/api", authRoutes);
+
+const carwashDireccion = require("./src/routes/carwash.routes");
+
+app.use("/carwash", carwashDireccion);
+
+const direccionRoutes = require("./src/routes/direccion.routes");
+// require("./src/routes"); // ⬅ carga relaciones
 
 app.use("/direccion", direccionRoutes);
+
+//obtener usuario por id 
+app.get("/usuarios/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const usuario = await Usuario.findByPk(id);
+
+    if (!usuario) {
+      return res.status(404).json({ msg: "Usuario no encontrado" });
+    }
+
+    res.json(usuario);
+
+  } catch (error) {
+    res.status(500).json({ msg: "Error del servidor" });
+  }
+});
+
+//actualizar usuario 
+app.put("/usuarios/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { nombre, correo, contrasena } = req.body;
+
+    const usuario = await Usuario.findByPk(id);
+
+    if (!usuario) {
+      return res.status(404).json({ msg: "Usuario no encontrado" });
+    }
+
+    await usuario.update({
+      nombre,
+      correo,
+      contrasena
+    });
+
+    res.json({ msg: "Usuario actualizado correctamente" });
+
+  } catch (error) {
+    res.status(500).json({ msg: "Error al actualizar" });
+  }
+});
+
+
+
+const galeriaRoutes = require("./src/routes/galeria");
+app.use("/galeria", galeriaRoutes);
+
+// app.js o server.js
+app.use("/uploads", express.static("uploads"));
+
+const serviciosRoutes = require("./src/routes/servicios.routes");
+const serviciosCarwashRoutes = require("./src/routes/serviciosCarwash.routes");
+
+app.use("/servicios", serviciosRoutes);
+app.use("/servicios-carwash", serviciosCarwashRoutes);
+
+
+const carwashRoutes = require("./src/routes/carwash.routes");
+
+
+// app.use("/carwash", carwashRoutes);
 
 
 // Servidor

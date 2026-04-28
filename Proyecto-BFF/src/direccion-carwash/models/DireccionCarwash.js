@@ -16,4 +16,5 @@ const DireccionCarwash = sequelize.define("direccion_carwash", {
   timestamps: false,
 });
 
+
 module.exports = DireccionCarwash;

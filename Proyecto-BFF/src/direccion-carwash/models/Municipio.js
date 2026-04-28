@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../db/bd");
 
+
 const Municipio = sequelize.define("municipio", {
   id_municipio: {
     type: DataTypes.INTEGER,
@@ -13,5 +14,6 @@ const Municipio = sequelize.define("municipio", {
   tableName: "municipio",
   timestamps: false,
 });
+
 
 module.exports = Municipio;

@@ -28,18 +28,19 @@ router.post("/", async (req, res) => {
     console.log("🔐 BD:", carwash.contrasena);
     console.log("🧾 FORM:", contrasena);
 
-    if (carwash.contrasena !== contrasena) {
+    if (String(carwash.contrasena).trim() !== String(contrasena).trim()) {
       return res.status(401).json({ msg: "Contraseña incorrecta" });
     }
 
     res.json({
-     msg: "Login exitoso",
-     carwash: {
+  msg: "Login exitoso",
+  carwash: {
     id_carwash: carwash.id_carwash,
     nombre_carwash: carwash.nombre_carwash,
-    correo: carwash.correo
-    }
-  });
+    correo: carwash.correo,
+    tipo: "carwash"
+  }
+});
 
   } catch (err) {
     console.error("❌ Error REAL:", err);

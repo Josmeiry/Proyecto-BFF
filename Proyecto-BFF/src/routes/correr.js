@@ -10,13 +10,15 @@ router.use("/admin", require("./admin-login"));
 router.use("/carwash", require("./carwash_dashboard"));
 
 router.use("/api/uploads", require("./uploads"));
+router.use("/galeria", require("./galeria"));
 
-
-router.use("/index", require("./../../Usuarios/index"));
+// router.use("/index", require("./../../Usuarios/index"));
 
 //router.use("/carwash", require("../../carwash"));
 
-
 router.use("/", require("./login-usuario"));
-
+router.use("/", require("./registrar-usuario"));
+router.use("/carwash", require("./carwash.routes"));
+router.use("/direccion", require("./direccion.routes"));
+// router.use("/api", require("./carwash.routes"));
 module.exports = router;

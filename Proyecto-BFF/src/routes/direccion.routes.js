@@ -4,19 +4,19 @@ const router = express.Router();
 
 
 // 👇 IMPORTA LA INSTANCIA REAL
-const sequelize = require("../../db/bd");
+const sequelize = require("../db/bd");
 
 // 👇 IMPORTA MODELOS DESDE SUS ARCHIVOS
-const Pais = require("../models/Pais");
-const Region = require("../models/Region");
-const Provincia = require("../models/Provincia");
-const Municipio = require("../models/Municipio");
-const Ciudad = require("../models/Ciudad");
-const Barrio = require("../models/Barrio");
-const Calle = require("../models/Calle");
-const DireccionCarwash = require("../models/DireccionCarwash");
+const Pais = require("../direccion-carwash/models/Pais");
+const Region = require("../direccion-carwash/models/Region");
+const Provincia = require("../direccion-carwash/models/Provincia");
+const Municipio = require("../direccion-carwash/models/Municipio");
+const Ciudad = require("../direccion-carwash/models/Ciudad");
+const Barrio = require("../direccion-carwash/models/Barrio");
+const Calle = require("../direccion-carwash/models/Calle");
+const DireccionCarwash = require("../direccion-carwash/models/DireccionCarwash");
 
-const CarWash = require("../../../CarWash");
+const CarWash = require("../direccion-carwash/models/CarWash");
 
 
 /* =========================

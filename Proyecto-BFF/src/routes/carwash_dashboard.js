@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 const CarWash = require("../../CarWash");
 
-router.get("/:id", async (req, res) => {
-  const carwash = await CarWash.findByPk(req.params.id);
-  if (!carwash) return res.status(404).json({ msg: "No encontrado" });
-  res.json(carwash);
-});
+// router.get("/:id", async (req, res) => {
+//   const carwash = await CarWash.findByPk(req.params.id);
+//   if (!carwash) return res.status(404).json({ msg: "No encontrado" });
+//   res.json(carwash);
+// });
 
 router.put("/:id", async (req, res) => {
   const carwash = await CarWash.findByPk(req.params.id);

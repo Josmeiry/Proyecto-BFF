@@ -1,6 +1,7 @@
+console.log("registrar-carwash.js cargado correctamente");
 const express = require("express");
 const router = express.Router();
-const Usuario = require("../Usuario");
+const Usuario = require("../../Usuario");
 
 
 router.post("/registrar-usuario", async (req, res) => {
@@ -8,8 +9,7 @@ router.post("/registrar-usuario", async (req, res) => {
     const { nombre, correo, contrasena } = req.body;
 
     if (!nombre || !correo || !contrasena) {
-      return res.status(400).json({ msg: "Datos incompletos" });
-    }
+      return res.status(400).json({ msg: "Datos incompletos" }); }
 
     // Verificar si existe
     const existe = await Usuario.findOne({ where: { correo } });

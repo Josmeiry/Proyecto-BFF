@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../db/bd");
 
+
 const Region = sequelize.define("region", {
   id_region: {
     type: DataTypes.INTEGER,
@@ -13,5 +14,6 @@ const Region = sequelize.define("region", {
   tableName: "region",
   timestamps: false,
 });
+
 
 module.exports = Region;
