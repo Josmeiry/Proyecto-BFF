@@ -9,7 +9,9 @@ const app = express();
 
 // Middlewares
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: "https://proyecto-ffb.vercel.app/"
+}));
 
 // DEBUG: mostrar cada petición que entra
 app.use((req, res, next) => {
@@ -92,8 +94,7 @@ app.put("/usuarios/:id", async (req, res) => {
 const galeriaRoutes = require("./src/routes/galeria");
 app.use("/galeria", galeriaRoutes);
 
-// app.js o server.js
-app.use("/uploads", express.static("uploads"));
+
 
 const serviciosRoutes = require("./src/routes/servicios.routes");
 const serviciosCarwashRoutes = require("./src/routes/serviciosCarwash.routes");
