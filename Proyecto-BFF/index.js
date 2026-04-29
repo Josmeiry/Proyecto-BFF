@@ -10,7 +10,10 @@ const app = express();
 // Middlewares
 app.use(express.json());
 app.use(cors({
-  origin: "https://proyecto-ffb.vercel.app/"
+  origin: [
+    "http://localhost:5173",
+    "https://proyecto-ffb.vercel.app"
+  ]
 }));
 
 // DEBUG: mostrar cada petición que entra
