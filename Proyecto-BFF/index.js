@@ -51,8 +51,10 @@ app.get("/", (req, res) => {
 app.use("/", routes);
 app.use("/uploads", express.static("uploads"));
 
-// const authRoutes = require("./routes/auth");
-// app.use("/api", authRoutes);
+
+const mediaRoutes = require("./src/routes/media");
+app.use("/media", mediaRoutes);
+
 
 const carwashDireccion = require("./src/routes/carwash.routes");
 
