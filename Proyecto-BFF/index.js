@@ -7,14 +7,28 @@ const sequelize = require('./src/db/bd');
 
 const app = express();
 
+//cors permiso acceso vercel
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://proyecto-raewc36y4-josmeiry-munoz-inoas-projects.vercel.app",
+  "https://proyecto-ffb.vercel.app"
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS bloqueado"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
+
 // Middlewares
 app.use(express.json());
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://proyecto-ffb.vercel.app"
-  ]
-}));
+
 
 // DEBUG: mostrar cada petición que entra
 app.use((req, res, next) => {
