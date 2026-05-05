@@ -30,9 +30,9 @@ app.use(cors({
       callback(new Error("CORS bloqueado"));
     }
   },
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
-app.options('*', cors());
 
 
 
