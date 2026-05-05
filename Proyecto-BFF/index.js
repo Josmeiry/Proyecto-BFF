@@ -7,27 +7,34 @@ const sequelize = require('./src/db/bd');
 
 const app = express();
 
+
+app.use("/uploads", express.static("uploads"));
+
+app.use(express.json());
 //cors permiso acceso vercel
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://proyecto-raewc36y4-josmeiry-munoz-inoas-projects.vercel.app",
   "https://proyecto-ffb.vercel.app"
+ 
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (
+      !origin ||
+      allowedOrigins.includes(origin) ||
+      origin.includes("vercel.app")
+    ) {
       callback(null, true);
     } else {
       callback(new Error("CORS bloqueado"));
     }
   },
-  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
+app.options('*', cors());
 
-// Middlewares
-app.use(express.json());
+
 
 
 // DEBUG: mostrar cada petición que entra
@@ -49,7 +56,7 @@ app.get("/", (req, res) => {
 
 //  todas las rutas (todas agrupadas en /src/routes)
 app.use("/", routes);
-app.use("/uploads", express.static("uploads"));
+
 
 
 const mediaRoutes = require("./src/routes/media");

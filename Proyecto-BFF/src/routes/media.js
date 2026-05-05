@@ -1,14 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const MediaApp = require("../models/MediaApp");
-
 const multer = require("multer");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../../Cloudinary");
+
+
 
 // STORAGE
-const storage = multer.diskStorage({
-  destination: "uploads/",
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "majoapp",
+    resource_type: "auto"
   }
 });
 
@@ -23,7 +27,7 @@ router.post("/", upload.single("archivo"), async (req, res) => {
     const { entidad_tipo, entidad_id, tipo, categoria } = req.body;
 
     const nuevo = await MediaApp.create({
-      url: `http://localhost:2629/uploads/${req.file.filename}`,
+      url: req.file.path ,
       nombre: req.file.originalname,
       tipo,
       mime_type: req.file.mimetype,
@@ -34,10 +38,11 @@ router.post("/", upload.single("archivo"), async (req, res) => {
     });
 
     res.json(nuevo);
-
+    
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Error subiendo archivo" });
+    // res.status(500).json({ error: "Error subiendo archivo" });
+    res.status(500).json({ error: error.message });
   }
 });
 
