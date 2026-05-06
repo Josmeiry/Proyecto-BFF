@@ -31,10 +31,7 @@ const CarWash = sequelize.define("carwash", {
   descripcion: {
     type: DataTypes.TEXT,
   },
-  calificacion_promedio: {
-    type: DataTypes.FLOAT,
-    defaultValue: 0,
-  },
+  
   vistas_perfil: {
     type: DataTypes.INTEGER,
     defaultValue: 0,

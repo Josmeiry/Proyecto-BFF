@@ -15,7 +15,7 @@ const CarWash = sequelize.define("carwash", {
   telefono: DataTypes.STRING,
   horario: DataTypes.STRING,
   descripcion: DataTypes.STRING,
-  calificacion_promedio: DataTypes.FLOAT,
+
   vistas_perfil: DataTypes.INTEGER,
   clics_ver_detalles: DataTypes.INTEGER,
   clics_como_llegar: DataTypes.INTEGER
