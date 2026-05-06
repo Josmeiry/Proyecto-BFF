@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { ImagenCarwash } = require("../models");
-
+const fs = require("fs");
+const path = require("path");
 
 const multer = require("multer");
 
@@ -17,12 +18,31 @@ const upload = multer({ storage });
 // 🔹 DELETE imagen
 router.delete("/:id", async (req, res) => {
   try {
-    await ImagenCarwash.destroy({
-      where: { id_imagen: req.params.id }
-    });
+    const imagen = await ImagenCarwash.findOne({
+  where: { id_imagen: req.params.id }
+});
 
-    res.json({ mensaje: "Imagen eliminada" });
+    if (!imagen) {
+      return res.status(404).json({ error: "Imagen no encontrada" });
+    }
+
+    // 📌 Sacar nombre del archivo desde la URL
+    const nombreArchivo = imagen.url.split("/uploads/")[1];
+
+    const ruta = path.join(__dirname, "../uploads", nombreArchivo);
+
+    // 🔥 eliminar archivo físico
+    if (fs.existsSync(ruta)) {
+      fs.unlinkSync(ruta);
+    }
+
+    // 🔥 eliminar de BD
+    await imagen.destroy();
+
+    res.json({ mensaje: "Imagen eliminada correctamente" });
+
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: error.message });
   }
 });

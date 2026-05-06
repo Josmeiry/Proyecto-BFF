@@ -20,20 +20,17 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (
-      !origin ||
-      allowedOrigins.includes(origin) ||
-      origin.includes("vercel.app")
-    ) {
+    if (!origin ||allowedOrigins.includes(origin) || /^https:\/\/.*\.vercel\.app$/.test(origin || "")
+  ) {
       callback(null, true);
     } else {
-      callback(new Error("CORS bloqueado"));
+      console.log(" Bloqueado por CORS:", origin);
+      callback(null, false); 
     }
   },
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
-
 
 
 
