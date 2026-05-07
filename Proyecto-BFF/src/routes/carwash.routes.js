@@ -19,6 +19,23 @@ const {
   Pais
 } = require("../direccion-carwash/models/index");
 
+// sumar vista
+router.post("/carwash/:id/view", async (req, res) => {
+  await CarWash.increment("vistas_perfil", { where: { id: req.params.id } });
+  res.sendStatus(200);
+});
+
+// sumar click
+router.post("/carwash/:id/click", async (req, res) => {
+  await CarWash.increment("clics_ver_detalles", { where: { id: req.params.id } });
+  res.sendStatus(200);
+});
+
+router.post("/carwash/:id/click_llegar", async (req, res) => {
+  await CarWash.increment("clics_como_llegar", { where: { id: req.params.id } });
+  res.sendStatus(200);
+});
+
 /* =========================
    OBTENER TODOS LOS CARWASH
 ========================= */
