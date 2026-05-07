@@ -19,6 +19,7 @@ router.use("/galeria", require("./galeria"));
 router.use("/", require("./login-usuario"));
 router.use("/", require("./registrar-usuario"));
 router.use("/carwash", require("./carwash.routes"));
+router.use("/", require("./carwash"))
 router.use("/direccion", require("./direccion.routes"));
 // router.use("/api", require("./carwash.routes"));
 module.exports = router;
