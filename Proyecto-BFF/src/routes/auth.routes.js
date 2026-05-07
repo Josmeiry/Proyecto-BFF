@@ -6,19 +6,17 @@ const Usuario = require("../../Usuario");
 router.post("/google", async (req, res) => {
   try {
 
-    const { nombre, email, foto, tipo } = req.body;
+    const { nombre, correo } = req.body;
 
     let usuario = await Usuario.findOne({
-      where: { email }
+      where: { correo }
     });
 
     if (!usuario) {
 
       usuario = await Usuario.create({
         nombre,
-        email,
-        foto,
-        tipo
+        correo
       });
     }
 
