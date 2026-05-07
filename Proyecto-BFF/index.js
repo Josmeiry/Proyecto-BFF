@@ -14,13 +14,13 @@ app.use(express.json());
 //cors permiso acceso vercel
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://proyecto-ffb.vercel.app"
- 
+  "https://proyecto-ffb.vercel.app",
+  "https://majoad.space"
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin ||allowedOrigins.includes(origin) || /^https:\/\/.*\.vercel\.app$/.test(origin || "majoad.space")
+    if (!origin ||allowedOrigins.includes(origin) || /^https:\/\/.*\.vercel\.app$/.test(origin || "")
   ) {
       callback(null, true);
     } else {
