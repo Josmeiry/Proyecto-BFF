@@ -22,4 +22,6 @@ router.use("/carwash", require("./carwash.routes"));
 router.use("/", require("./carwash"))
 router.use("/direccion", require("./direccion.routes"));
 // router.use("/api", require("./carwash.routes"));
+
+router.use("/usuarios", require("./usuarios"));
 module.exports = router;
