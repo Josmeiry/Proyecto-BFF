@@ -20,7 +20,7 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin ||allowedOrigins.includes(origin) || /^https:\/\/.*\.vercel\.app$/.test(origin || "")
+    if (!origin ||allowedOrigins.includes(origin) || /^https:\/\/.*\.vercel\.app$/.test(origin || "majoad.space")
   ) {
       callback(null, true);
     } else {

@@ -16,4 +16,31 @@ router.get("/", async (req, res) => {
   }
 });
 
+// ELIMINAR USUARIO
+router.delete("/:id", async (req, res) => {
+  try {
+    const usuario = await Usuario.findByPk(req.params.id);
+
+    if (!usuario) {
+      return res.status(404).json({
+        msg: "Usuario no encontrado"
+      });
+    }
+
+    await usuario.destroy();
+
+    res.json({
+      msg: "Usuario eliminado correctamente"
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      msg: "Error eliminando usuario"
+    });
+  }
+});
+
+
 module.exports = router;
