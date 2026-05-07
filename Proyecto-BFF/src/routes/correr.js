@@ -24,5 +24,5 @@ router.use("/direccion", require("./direccion.routes"));
 // router.use("/api", require("./carwash.routes"));
 
 router.use("/usuarios", require("./usuarios"));
-router.use("/auth", require("./auth.routes"));
+
 module.exports = router;

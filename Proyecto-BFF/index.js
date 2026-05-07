@@ -54,7 +54,9 @@ app.get("/", (req, res) => {
 //  todas las rutas (todas agrupadas en /src/routes)
 app.use("/", routes);
 
+const authRoutes = require ("./src/routes/auth.routes");
 
+app.use("/auth", authRoutes);
 
 const mediaRoutes = require("./src/routes/media");
 app.use("/media", mediaRoutes);
