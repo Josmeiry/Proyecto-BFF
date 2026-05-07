@@ -20,6 +20,32 @@ const {
 } = require("../direccion-carwash/models/index");
 
 /* =========================
+   OBTENER TODOS LOS CARWASH
+========================= */
+router.get("/", async (req, res) => {
+  try {
+
+    const carwashes = await CarWash.findAll({
+      include: [
+        {
+          model: ImagenCarwash,
+          as: "imagenes",
+          attributes: ["url", "descripcion"]
+        }
+      ]
+    });
+
+    res.json(carwashes);
+
+  } catch (error) {
+    console.error("ERROR:", error);
+    res.status(500).json({
+      error: "Error al obtener carwash"
+    });
+  }
+});
+
+/* =========================
    🔹 OBTENER CARWASH + DIRECCIÓN
 ========================= */
 router.get("/por-modelo/:id_modelo", carwashPorModelo);
